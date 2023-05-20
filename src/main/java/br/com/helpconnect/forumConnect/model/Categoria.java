@@ -22,11 +22,15 @@ public class Categoria {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private Long id;
+	private long id;
 	
 	@NotNull
 	@Column(name="nome")
 	private String nome;
+	
+	@NotNull
+	@Column(name="cor")
+	private String cor;
 	
 	@Column(name="postagens")
 	@OneToMany(mappedBy = "categoria", cascade = CascadeType.REMOVE)
@@ -45,12 +49,18 @@ public class Categoria {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	/*public List<Postagem> getPostagens() {
+	public String getCor() {
+		return cor;
+	}
+	public void setCor(String cor) {
+		this.cor = cor;
+	}
+	public List<Postagem> getPostagens() {
 		return postagens;
 	}
 	public void setPostagens(List<Postagem> postagens) {
 		this.postagens = postagens;
-	}*/
+	}
 	
 	
 	

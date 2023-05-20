@@ -23,7 +23,7 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private Long id;
+	private long id;
 	
 	@NotNull
 	@Column(name="nome")
@@ -43,13 +43,23 @@ public class Usuario {
 	
 	@Column(name="postagens")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("usuario")
+	@JsonIgnoreProperties({"usuario", "comentarios", "respostas"})
 	private List<Postagem> postagens = new ArrayList<>();
 	
 	@Column(name="respostas")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("usuario")
+	@JsonIgnoreProperties({"usuario", "postagem", "comentarios"})
 	private List<Resposta> respostas  = new ArrayList<>();
+	
+	@Column(name="comentarios")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"postagem", "usuario"})
+	private List<Comentario> comentarios  = new ArrayList<>();
+	
+	@Column(name="comentarios-respostas")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"resposta", "usuario"})
+	private List<ComentarioResposta> comentariosRespostas  = new ArrayList<>();
 	
 	public long getId() {
 		return id;
@@ -86,6 +96,24 @@ public class Usuario {
 	}
 	public void setRespostas(List<Resposta> respostas) {
 		this.respostas = respostas;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
+	public List<ComentarioResposta> getComentariosRespostas() {
+		return comentariosRespostas;
+	}
+	public void setComentariosRespostas(List<ComentarioResposta> comentariosRespostas) {
+		this.comentariosRespostas = comentariosRespostas;
 	}
 	
 }

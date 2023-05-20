@@ -24,7 +24,7 @@ public class Postagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private Long id;
+	private long id;
 	
 	@NotNull
 	@Column(name="conteudo")
@@ -40,16 +40,16 @@ public class Postagem {
 	
 	@Column(name="comentarios")
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties({"postagem", "comentarios"/*, "usuario"*/})
 	private List<Comentario> comentarios = new ArrayList<>();
 	
 	@Column(name="respostas")
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties("postagem")
+	@JsonIgnoreProperties({"postagem", /*"comentarios", "usuario"*/})
 	private List<Resposta> respostas = new ArrayList<>();
 	
 	@ManyToOne
-	@JsonIgnoreProperties("postagens")
+	@JsonIgnoreProperties({"postagens", "respostas", "comentarios", "comentariosRespostas"})
 	private Usuario usuario;
 	
 	public long getId() {

@@ -19,7 +19,7 @@ public class Comentario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private Long id;
+	private long id;
 	
 	@NotNull
 	@Column(name="conteudo")
@@ -30,12 +30,13 @@ public class Comentario {
 	
 	@ManyToOne
 	@JoinColumn(name="postagem")
-	@JsonIgnoreProperties("comentarios")
+	@JsonIgnoreProperties({"comentarios", "respostas", "usuario"})
 	private Postagem postagem;
 	
-	@NotNull
-	@Column(name="usuario")
-	private String usuario;
+	@ManyToOne
+	@JoinColumn(name="usuario")
+	@JsonIgnoreProperties({"comentarios", "comentariosRespostas", "postagens", "respostas"})
+	private Usuario usuario;
 	
 	public long getId() {
 		return id;
@@ -61,10 +62,10 @@ public class Comentario {
 	public void setPostagem(Postagem postagem) {
 		this.postagem = postagem;
 	}
-	public String getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 	
