@@ -27,6 +27,10 @@ public class Resposta {
 	private long id;
 	
 	@NotNull
+	@Column(name="titulo")
+	private String titulo;
+	
+	@NotNull
 	@Column(name="conteudo")
 	private String conteudo;
 	
@@ -52,6 +56,12 @@ public class Resposta {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public String getTitulo() {
+		return titulo;
+	}
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	public String getConteudo() {
 		return conteudo;
