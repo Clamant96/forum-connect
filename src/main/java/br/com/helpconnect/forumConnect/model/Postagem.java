@@ -1,6 +1,7 @@
 package br.com.helpconnect.forumConnect.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -53,8 +56,13 @@ public class Postagem {
 	private List<Resposta> respostas = new ArrayList<>();
 	
 	@ManyToOne
-	@JsonIgnoreProperties({"postagens", "respostas", "comentarios", "comentariosRespostas"})
+	@JsonIgnoreProperties({"respostas", "comentarios", "comentariosRespostas"})
 	private Usuario usuario;
+	
+	private int visualizacao;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
 	public long getId() {
 		return id;
@@ -104,7 +112,17 @@ public class Postagem {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+	public int getVisualizacao() {
+		return visualizacao;
+	}
+	public void setVisualizacao(int visualizacao) {
+		this.visualizacao = visualizacao;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
+	}
 	
 }
