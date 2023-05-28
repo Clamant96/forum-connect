@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.helpconnect.forumConnect.model.Usuario;
 import br.com.helpconnect.forumConnect.repository.UsuarioRepository;
+import br.com.helpconnect.forumConnect.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
@@ -25,6 +26,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	
+	@Autowired
+	private UsuarioService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> findAllUsuarios() {
@@ -38,6 +42,12 @@ public class UsuarioController {
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/qtd-postagens/{id}")
+	public int findByQtdPostagensIdUsuario(@PathVariable("id") long id) {
+		
+		return service.registraVisualizacao(id);
 	}
 	
 	@PostMapping

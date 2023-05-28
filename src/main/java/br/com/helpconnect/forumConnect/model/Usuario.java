@@ -43,8 +43,8 @@ public class Usuario {
 	
 	@Column(name="postagens")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"usuario", "comentarios", "respostas"})
-	private List<Postagem> postagens = new ArrayList<>();
+	@JsonIgnoreProperties({"usuario"/*, "comentarios", "respostas"*/})
+	private List<Postagem> postagens;
 	
 	@Column(name="respostas")
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)

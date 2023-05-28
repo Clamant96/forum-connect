@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.helpconnect.forumConnect.model.Postagem;
 import br.com.helpconnect.forumConnect.repository.PostagemRepository;
+import br.com.helpconnect.forumConnect.service.PostagemService;
 
 @RestController
 @RequestMapping("/postagem")
@@ -25,6 +26,9 @@ public class PostagemController {
 	
 	@Autowired
 	private PostagemRepository repository;
+	
+	@Autowired
+	private PostagemService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> findAllPostagens() {
@@ -40,6 +44,18 @@ public class PostagemController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
+	@GetMapping("/visualizacao/{id}")
+	public boolean registrarVisualizacao(@PathVariable("id") long id) {
+		
+		return service.registraVisualizacao(id);
+	}
+	
+	@GetMapping("/gostei/{id}/{status}")
+	public int registrarVisualizacao(@PathVariable("id") long id, @PathVariable("status") String status) {
+		
+		return service.registraAvaliacao(id, status);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Postagem> postPostagem(@RequestBody Postagem postagem) {
 		
@@ -50,6 +66,12 @@ public class PostagemController {
 	public ResponseEntity<Postagem> putPostagem(@RequestBody Postagem postagem) {
 		
 		return ResponseEntity.ok(repository.save(postagem));
+	}
+	
+	@PutMapping("/atualiza/conteudo")
+	public boolean  putConteudoPostagem(@RequestBody Postagem postagem) {
+		
+		return service.atualizaConteudoPostagem(postagem);
 	}
 	
 	@DeleteMapping("/{id}")
