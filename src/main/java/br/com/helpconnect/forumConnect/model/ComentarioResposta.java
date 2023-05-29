@@ -2,6 +2,8 @@ package br.com.helpconnect.forumConnect.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -37,6 +41,9 @@ public class ComentarioResposta {
 	@JoinColumn(name="usuario")
 	@JsonIgnoreProperties({"comentariosRespostas", "postagens", "respostas", "comentarios"})
 	private Usuario usuario;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date data = new java.sql.Date(System.currentTimeMillis());
 	
 	public long getId() {
 		return id;
@@ -67,6 +74,12 @@ public class ComentarioResposta {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public Date getData() {
+		return data;
+	}
+	public void setData(Date data) {
+		this.data = data;
 	}
 	
 }

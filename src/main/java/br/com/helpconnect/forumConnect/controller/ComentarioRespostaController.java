@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.helpconnect.forumConnect.model.ComentarioResposta;
 import br.com.helpconnect.forumConnect.repository.ComentarioRespostaRepository;
+import br.com.helpconnect.forumConnect.service.ComentarioRespostaService;
 
 @RestController
 @RequestMapping("/comentario-resposta")
@@ -25,6 +26,9 @@ public class ComentarioRespostaController {
 	
 	@Autowired
 	private ComentarioRespostaRepository repository;
+	
+	@Autowired
+	private ComentarioRespostaService service;
 	
 	@GetMapping
 	public ResponseEntity<List<ComentarioResposta>> findAllComentarios() {
@@ -38,6 +42,12 @@ public class ComentarioRespostaController {
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/gostei/{id}/{status}")
+	public int registrarVisualizacao(@PathVariable("id") long id, @PathVariable("status") String status) {
+		
+		return service.registraAvaliacao(id, status);
 	}
 	
 	@PostMapping

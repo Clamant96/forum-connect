@@ -47,7 +47,7 @@ public class UsuarioController {
 	@GetMapping("/qtd-postagens/{id}")
 	public int findByQtdPostagensIdUsuario(@PathVariable("id") long id) {
 		
-		return service.registraVisualizacao(id);
+		return service.qtdPostagensIdUsuario(id);
 	}
 	
 	@PostMapping

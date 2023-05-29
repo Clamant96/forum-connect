@@ -14,7 +14,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public int registraVisualizacao(long id) {
+	public int qtdPostagensIdUsuario(long id) {
 		
 		Optional<Usuario> postagemExistente = usuarioRepository.findById(id);
 		
