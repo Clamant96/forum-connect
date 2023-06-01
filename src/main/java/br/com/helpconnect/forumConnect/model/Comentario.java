@@ -34,7 +34,7 @@ public class Comentario {
 	
 	@ManyToOne
 	@JoinColumn(name="postagem")
-	@JsonIgnoreProperties({"comentarios", "respostas", "usuario"})
+	@JsonIgnoreProperties({/*"comentarios", */"respostas", "usuario"})
 	private Postagem postagem;
 	
 	@ManyToOne
