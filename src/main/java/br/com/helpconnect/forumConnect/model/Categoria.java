@@ -37,6 +37,8 @@ public class Categoria {
 	@JsonIgnoreProperties("categoria")
 	private List<Postagem> postagens = new ArrayList<Postagem>();
 	
+	private String descricao;
+	
 	public long getId() {
 		return id;
 	}
@@ -61,7 +63,11 @@ public class Categoria {
 	public void setPostagens(List<Postagem> postagens) {
 		this.postagens = postagens;
 	}
-	
-	
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	
 }
