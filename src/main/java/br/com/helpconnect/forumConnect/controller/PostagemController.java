@@ -56,6 +56,12 @@ public class PostagemController {
 		return service.registraAvaliacao(id, status);
 	}
 	
+	@GetMapping("/by/categoria/{id}")
+	public List<Postagem> retornaPostagensPorCategoria(@PathVariable("id") long id) {
+		
+		return service.buscaPostagensPorCategoria(id);
+	}
+	
 	@PostMapping
 	public ResponseEntity<Postagem> postPostagem(@RequestBody Postagem postagem) {
 		

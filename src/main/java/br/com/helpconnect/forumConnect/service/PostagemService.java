@@ -1,11 +1,14 @@
 package br.com.helpconnect.forumConnect.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.helpconnect.forumConnect.model.Categoria;
 import br.com.helpconnect.forumConnect.model.Postagem;
+import br.com.helpconnect.forumConnect.repository.CategoriaRepository;
 import br.com.helpconnect.forumConnect.repository.PostagemRepository;
 
 @Service
@@ -13,6 +16,9 @@ public class PostagemService {
 	
 	@Autowired
 	private PostagemRepository postagemRepository;
+	
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 	
 	public boolean registraVisualizacao(long id) {
 		
@@ -68,6 +74,14 @@ public class PostagemService {
 			return false;
 		}
 		
+	}
+	
+	public List<Postagem> buscaPostagensPorCategoria(long id) {
+			
+		Optional<Categoria> categoriaExistente = categoriaRepository.findById(id);
+		Optional<List<Postagem>> postagemExistente = postagemRepository.findByCategoria(categoriaExistente.get());
+		
+		return postagemExistente.get();
 	}
 	
 }
