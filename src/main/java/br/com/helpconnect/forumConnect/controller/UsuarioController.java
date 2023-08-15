@@ -1,6 +1,7 @@
 package br.com.helpconnect.forumConnect.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.helpconnect.forumConnect.model.Usuario;
+import br.com.helpconnect.forumConnect.model.UsuarioLogin;
 import br.com.helpconnect.forumConnect.repository.UsuarioRepository;
 import br.com.helpconnect.forumConnect.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 public class UsuarioController {
 	
 	@Autowired
@@ -50,6 +52,30 @@ public class UsuarioController {
 		return service.qtdPostagensIdUsuario(id);
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody Optional<UsuarioLogin> user) {
+		
+		System.out.println("Email: "+ user.get().getEmail());
+		System.out.println("Senha: "+ user.get().getSenha());
+		
+		return service.Logar(user).map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+	}
+
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> Post(@RequestBody Usuario usuario) {
+		Optional<Usuario> user = service.CadastrarUsuario(usuario);
+		
+		try {
+			return ResponseEntity.ok(user.get());
+			
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+			
+		}
+		
+	}
+	
 	@PostMapping
 	public ResponseEntity<Usuario> postUsuario(@RequestBody Usuario usuario) {
 		
@@ -60,6 +86,20 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> putUsuario(@RequestBody Usuario usuario) {
 		
 		return ResponseEntity.ok(repository.save(usuario));
+	}
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<Usuario> update(@RequestBody Usuario usuario) {
+		Optional<Usuario> user = service.atualizarUsuario(usuario);
+		
+		try {
+			return ResponseEntity.ok(user.get());
+			
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().build();
+			
+		}
+		
 	}
 	
 	@DeleteMapping("/{id}")
