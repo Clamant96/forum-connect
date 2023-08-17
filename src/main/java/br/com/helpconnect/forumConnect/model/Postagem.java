@@ -34,7 +34,7 @@ public class Postagem {
 	private String titulo;
 	
 	@NotNull
-	@Column(name="conteudo")
+	@Column(name="conteudo", length=5000)
 	private String conteudo;
 	
 	@ManyToOne
