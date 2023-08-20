@@ -1,11 +1,14 @@
 package br.com.helpconnect.forumConnect.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.helpconnect.forumConnect.model.Postagem;
 import br.com.helpconnect.forumConnect.model.Resposta;
+import br.com.helpconnect.forumConnect.repository.PostagemRepository;
 import br.com.helpconnect.forumConnect.repository.RespostaRepository;
 
 @Service
@@ -13,6 +16,9 @@ public class RespostaService {
 	
 	@Autowired
 	private RespostaRepository respostaRepository;
+	
+	@Autowired
+	private PostagemRepository postagemRepository;
 	
 	public int registraAvaliacao(long id, String status) {
 		
@@ -50,6 +56,12 @@ public class RespostaService {
 			return false;
 		}
 		
+	}
+	
+	public List<Resposta> buscaRespostasDaPostagem(long id) {
+		Optional<Postagem> postagemExistente = postagemRepository.findById(id);
+		
+		return postagemExistente.get().getRespostas();
 	}
 
 }

@@ -77,6 +77,11 @@ public class PostagemController {
 	@PutMapping("/atualiza/conteudo")
 	public boolean  putConteudoPostagem(@RequestBody Postagem postagem) {
 		
+		System.out.println("Postagem: ");
+		System.out.println(postagem);
+		
+		System.out.println("ENTROU NO ENDPOINT");
+		
 		return service.atualizaConteudoPostagem(postagem);
 	}
 	

@@ -26,7 +26,7 @@ public class ComentarioResposta {
 	private long id;
 	
 	@NotNull
-	@Column(name="conteudo")
+	@Column(name="conteudo", length=5000)
 	private String conteudo;
 	
 	@Column(name="gostei")

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.helpconnect.forumConnect.model.Postagem;
 import br.com.helpconnect.forumConnect.model.Resposta;
 import br.com.helpconnect.forumConnect.repository.RespostaRepository;
 import br.com.helpconnect.forumConnect.service.RespostaService;
@@ -43,6 +42,12 @@ public class RespostaController {
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@GetMapping("/postagem/{id}")
+	public List<Resposta> findAllRespostasByIdPostagem(@PathVariable("id") long id) {
+		
+		return service.buscaRespostasDaPostagem(id);
 	}
 	
 	@GetMapping("/gostei/{id}/{status}")

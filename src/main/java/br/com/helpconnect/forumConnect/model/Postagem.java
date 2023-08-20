@@ -30,7 +30,7 @@ public class Postagem {
 	private long id;
 	
 	@NotNull
-	@Column(name="titulo")
+	@Column(name="titulo", length=5000)
 	private String titulo;
 	
 	@NotNull
@@ -52,7 +52,7 @@ public class Postagem {
 	
 	@Column(name="respostas")
 	@OneToMany(mappedBy = "postagem", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({/*"postagem", "comentarios",*/ /*"usuario"*/})
+	@JsonIgnoreProperties({"postagem", "comentarios", /*"usuario"*/})
 	private List<Resposta> respostas = new ArrayList<>();
 	
 	@ManyToOne

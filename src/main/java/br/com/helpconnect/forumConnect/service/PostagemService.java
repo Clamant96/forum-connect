@@ -60,16 +60,25 @@ public class PostagemService {
 	
 	public boolean atualizaConteudoPostagem(Postagem postagem) {
 			
+		System.out.println("Chegou aqui !!");
+		
 		Optional<Postagem> postagemExistente = postagemRepository.findById(postagem.getId());
 		
 		if(postagemExistente.isPresent()) {
 			postagemExistente.get().setConteudo(postagem.getConteudo());
 			
 			System.out.println(postagemExistente.get().getConteudo());
-			
-			postagemRepository.save(postagemExistente.get());
 		
-			return true;
+			try {
+				
+				postagemRepository.save(postagemExistente.get());
+				
+				return true;
+			}catch(org.springframework.http.converter.HttpMessageNotReadableException err) {
+				System.out.println(err.getLocalizedMessage());
+				return false;
+			}
+			
 		}else {
 			return false;
 		}
