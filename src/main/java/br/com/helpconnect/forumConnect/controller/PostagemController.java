@@ -33,7 +33,7 @@ public class PostagemController {
 	@GetMapping
 	public ResponseEntity<List<Postagem>> findAllPostagens() {
 		
-		return ResponseEntity.ok(repository.findAll());
+		return ResponseEntity.ok(service.getAllPostagensOrderByDesc());
 	}
 
 	@GetMapping("/{id}")

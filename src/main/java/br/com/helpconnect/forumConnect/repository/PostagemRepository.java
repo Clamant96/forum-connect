@@ -14,4 +14,6 @@ public interface PostagemRepository extends JpaRepository<Postagem, Long> {
 	
 	Optional<List<Postagem>> findByCategoria(Categoria categoria);
 	
+	List<Postagem> findAllByOrderByIdDesc();
+	
 }

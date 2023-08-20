@@ -93,4 +93,9 @@ public class PostagemService {
 		return postagemExistente.get();
 	}
 	
+	public List<Postagem> getAllPostagensOrderByDesc() {
+		
+		return postagemRepository.findAllByOrderByIdDesc();
+	}
+	
 }
